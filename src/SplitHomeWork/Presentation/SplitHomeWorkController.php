@@ -73,11 +73,7 @@ final class SplitHomeWorkController
             $content .= "</td>";
             $counter++;
             
-            if ($counter % $this->students == 0)
-            {
-                $content .= "</tr>";
-                $content .= "</tr>";
-            }
+            $this->breakColumn($counter, $content);
         }
 
         $content .= "</tr>";
@@ -86,7 +82,17 @@ final class SplitHomeWorkController
         return $content;
     }
 
-    private function isCousin(int $num) : bool {
+    private function breakColumn(int $num, string &$content) : void 
+    {
+        if ($num % $this->students == 0)
+        {
+            $content .= "</tr>";
+            $content .= "</tr>";
+        }
+    }
+    
+    private function isCousin(int $num) : bool 
+    {
         return boolval($num % 2);
     }
 }
