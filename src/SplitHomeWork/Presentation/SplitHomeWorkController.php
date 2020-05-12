@@ -20,10 +20,10 @@ final class SplitHomeWorkController
         return new Response($content);
     }
 
-    public function getResults() : int {
+    private function getResults() : int {
         $counter = 0;
 
-        for ($i = $this->items; $i > 0; $i--) 
+        for ($i = $this->items; $i > 0; $i--)
         {
             if (self::isCousin($i)) 
             {
@@ -34,14 +34,17 @@ final class SplitHomeWorkController
         return $counter;
     }
     
-    public function setDiff() : void {
+    private function setResult() : void {
+        $this->result = $this->getResults();
+    }
+
+    private function setDiff() : void {
         $this->diff = $this->result % $this->students;
     }
 
-
     private function getMessage() : string 
     {
-        $this->result = $this::getResults();
+        $this->setResult();
         $this->setDiff();
 
         if ($this->diff < 1) {
@@ -60,12 +63,9 @@ final class SplitHomeWorkController
         $content .= "</br>";
         $content .= "<table border=1>";
         $content .= "	<tr>";
-        $content .= "		<td>Marcos";
-        $content .= "		</td>";
-        $content .= "		<td>Nestor";
-        $content .= "		</td>";
-    	$content .= "		<td>Pablo";
-        $content .= "		</td>";
+        $content .= "		<td>Marcos</td>";
+        $content .= "		<td>Nestor</td>";
+    	$content .= "		<td>Pablo</td>";
         $content .= "	</tr>";
           
         for ($i = $this->items; $i > 0; $i--) 
