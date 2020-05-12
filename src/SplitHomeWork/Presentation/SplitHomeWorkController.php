@@ -24,7 +24,7 @@ final class SplitHomeWorkController
     private function setCousinItems() : void {
         for ($i = $this->items; $i > 0; $i--)
         {
-            $this->cousinItems = $this->isCousin($i) ? [...$this->cousinItems, $i] : $this->cousinItems;
+            $this->cousinItems = ($i & 1) ? [...$this->cousinItems, $i] : $this->cousinItems;
         }
     }
 
@@ -87,10 +87,5 @@ final class SplitHomeWorkController
             $content .= "</tr>";
             $content .= "<tr>";
         }
-    }
-    
-    private function isCousin(int $num) : bool 
-    {
-        return boolval($num % 2);
     }
 }
