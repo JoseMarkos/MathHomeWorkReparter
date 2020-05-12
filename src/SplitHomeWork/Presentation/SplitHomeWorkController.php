@@ -65,6 +65,7 @@ final class SplitHomeWorkController
         $content .= "		<td>Nestor</td>";
         $content .= "		<td>Pablo</td>";
         $content .= "	</tr>";
+        $content .= "	<tr>";
           
         foreach ($this->cousinItems as $i) 
         {
@@ -87,7 +88,7 @@ final class SplitHomeWorkController
         if ($num % $this->students == 0)
         {
             $content .= "</tr>";
-            $content .= "</tr>";
+            $content .= "<tr>";
         }
     }
     
