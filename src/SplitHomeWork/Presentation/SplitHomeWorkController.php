@@ -27,7 +27,7 @@ final class SplitHomeWorkController
             if ($this->isCousin($i)) 
             {
                 $this->cousinItems = [...$this->cousinItems, $i];
-            }           
+            }
         }
     }
 
@@ -61,9 +61,9 @@ final class SplitHomeWorkController
         $content .= "</br>";
         $content .= "<table border=1>";
         $content .= "	<tr>";
-        $content .= "		<td>Marcos</td>";
-        $content .= "		<td>Nestor</td>";
-        $content .= "		<td>Pablo</td>";
+        $content .= "		<th>Marcos</th>";
+        $content .= "		<th>Nestor</th>";
+        $content .= "		<th>Pablo</th>";
         $content .= "	</tr>";
         $content .= "	<tr>";
           
