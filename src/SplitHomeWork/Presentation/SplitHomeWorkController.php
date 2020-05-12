@@ -24,10 +24,7 @@ final class SplitHomeWorkController
     private function setCousinItems() : void {
         for ($i = $this->items; $i > 0; $i--)
         {
-            if ($this->isCousin($i)) 
-            {
-                $this->cousinItems = [...$this->cousinItems, $i];
-            }
+            $this->cousinItems = $this->isCousin($i) ? [...$this->cousinItems, $i] : $this->cousinItems;
         }
     }
 
