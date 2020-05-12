@@ -11,8 +11,9 @@ final class SplitHomeWorkController
 {
     private int $students = 3;
     private int $items = 35;
-    private int $result;
-    private float $diff;
+    private array $cousinItems = array();
+    private int $cousinItemsNum;
+    private float $extraItemsNum;
 
     public function show(Request $request) : Response
     {
@@ -20,38 +21,35 @@ final class SplitHomeWorkController
         return new Response($content);
     }
 
-    private function getResults() : int {
-        $counter = 0;
-
+    private function setCousinItems() : void {
         for ($i = $this->items; $i > 0; $i--)
         {
-            if (self::isCousin($i)) 
+            if ($this->isCousin($i)) 
             {
-                $counter++;
+                $this->cousinItems = [...$this->cousinItems, $i];
             }           
         }
-
-        return $counter;
-    }
-    
-    private function setResult() : void {
-        $this->result = $this->getResults();
     }
 
-    private function setDiff() : void {
-        $this->diff = $this->result % $this->students;
+    private function setCousinItemsNum() : void {
+        $this->setCousinItems();
+        $this->cousinItemsNum = count($this->cousinItems);
+    }
+
+    private function setextraItemsNum() : void {
+        $this->extraItemsNum = $this->cousinItemsNum % $this->students;
     }
 
     private function getMessage() : string 
     {
-        $this->setResult();
-        $this->setDiff();
+        $this->setcousinItemsNum();
+        $this->setextraItemsNum();
 
-        if ($this->diff < 1) {
-            return "Cada estudiante resuelve " . $this->result / $this->students . " ejercicios.";
+        if ($this->extraItemsNum < 1) {
+            return "Cada estudiante resuelve " . $this->cousinItemsNum / $this->students . " ejercicios.";
         }
 
-        return "Cada estudiante resuelve " . (round($this->result / $this->students) - (float)0) . " ejercicios. Hay " . $this->diff . " de mas.";
+        return "Cada estudiante resuelve " . (round($this->cousinItemsNum / $this->students) - (float)0) . " ejercicios. Hay " . $this->extraItemsNum . " de mas.";
     }
 
     private function getContent() : string
@@ -65,26 +63,23 @@ final class SplitHomeWorkController
         $content .= "	<tr>";
         $content .= "		<td>Marcos</td>";
         $content .= "		<td>Nestor</td>";
-    	$content .= "		<td>Pablo</td>";
+        $content .= "		<td>Pablo</td>";
         $content .= "	</tr>";
           
-        for ($i = $this->items; $i > 0; $i--) 
+        foreach ($this->cousinItems as $i) 
         {
-            if ($this->isCousin($i)) 
-            {
-                $content .= "<td>";
-                $content .= $i;
-                $content .= "</td>";
-                $counter++;
-            }           
-
+            $content .= "<td>";
+            $content .= $i;
+            $content .= "</td>";
+            $counter++;
+            
             if ($counter % $this->students == 0)
             {
                 $content .= "</tr>";
                 $content .= "</tr>";
             }
         }
-        
+
         $content .= "</tr>";
         $content .= "</table>";
 
