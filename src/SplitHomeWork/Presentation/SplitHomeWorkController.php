@@ -6,14 +6,15 @@ namespace SocialNews\SplitHomeWork\Presentation;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use SocialNews\SplitHomeWork\Presentation\Table;
 
 final class SplitHomeWorkController 
 {
-    private int $students = 3;
-    private int $items = 35;
+    private array $studentsNames = array('Marcos', 'Nestor', 'Pablo');
+    private int $items = 73;
+    private int $itemsTwo = 5;
     private array $cousinItems = array();
-    private int $cousinItemsNum;
-    private float $extraItemsNum;
+    private array $cousinItemsTwo = array();
 
     public function show(Request $request) : Response
     {
@@ -22,56 +23,27 @@ final class SplitHomeWorkController
     }
 
     private function setCousinItems() : void {
-        for ($i = $this->items; $i > 0; $i--)
+        for ($i = $this->items; $i > 35; $i--)
         {
             $this->cousinItems = ($i & 1) ? [...$this->cousinItems, $i] : $this->cousinItems;
         }
     }
 
-    private function setCousinItemsNum() : void {
-        $this->setCousinItems();
-        $this->cousinItemsNum = count($this->cousinItems);
-    }
-
-    private function setextraItemsNum() : void {
-        $this->extraItemsNum = $this->cousinItemsNum % $this->students;
+    private function setCousinItemsTwo() : void {
+        for ($i = $this->itemsTwo; $i > 0; $i--)
+        {
+            $this->cousinItemsTwo = ($i & 1) ? [...$this->cousinItemsTwo, $i] : $this->cousinItemsTwo;
+        }
     }
 
     private function getContent() : string
     {
-        $counter = 0;
-
-        $content .= "</br>";
-        $content .= "<table border=1>";
-        $content .= "	<tr>";
-        $content .= "		<th>Marcos</th>";
-        $content .= "		<th>Nestor</th>";
-        $content .= "		<th>Pablo</th>";
-        $content .= "	</tr>";
-        $content .= "	<tr>";
-          
-        foreach ($this->cousinItems as $i) 
-        {
-            $content .= "<td>";
-            $content .= $i;
-            $content .= "</td>";
-            $counter++;
-            
-            $this->breakColumn($counter, $content);
-        }
-
-        $content .= "</tr>";
-        $content .= "</table>";
+        $this->setCousinItems();
+        $this->setCousinItemsTwo();
+        
+        $content = Table::GetTable("3.2", $this->cousinItems, count($this->studentsNames));
+        $content .= Table::GetTable("3.3", $this->cousinItemsTwo, count($this->studentsNames));
 
         return $content;
-    }
-
-    private function breakColumn(int $num, string &$content) : void 
-    {
-        if ($num % $this->students == 0)
-        {
-            $content .= "</tr>";
-            $content .= "<tr>";
-        }
     }
 }
