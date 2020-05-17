@@ -10,9 +10,12 @@ use Symfony\Component\HttpFoundation\Response;
 final class SplitHomeWorkController 
 {
     private int $students = 3;
-    private int $items = 35;
+    private int $items = 73;
+    private int $itemsTwo = 5;
     private array $cousinItems = array();
+    private array $cousinItemsTwo = array();
     private int $cousinItemsNum;
+    private int $cousinItemsNumTwo;
     private float $extraItemsNum;
 
     public function show(Request $request) : Response
@@ -22,47 +25,44 @@ final class SplitHomeWorkController
     }
 
     private function setCousinItems() : void {
-        for ($i = $this->items; $i > 0; $i--)
+        for ($i = $this->items; $i > 35; $i--)
         {
             $this->cousinItems = ($i & 1) ? [...$this->cousinItems, $i] : $this->cousinItems;
         }
     }
 
+    private function setCousinItemsTwo() : void {
+        for ($i = $this->itemsTwo; $i > 0; $i--)
+        {
+            $this->cousinItemsTwo = ($i & 1) ? [...$this->cousinItemsTwo, $i] : $this->cousinItemsTwo;
+        }
+    }
+
     private function setCousinItemsNum() : void {
         $this->setCousinItems();
+        $this->setCousinItemsTwo();
         $this->cousinItemsNum = count($this->cousinItems);
+        $this->cousinItemsNumTwo = count($this->cousinItemsTwo);
     }
 
     private function setextraItemsNum() : void {
         $this->extraItemsNum = $this->cousinItemsNum % $this->students;
     }
 
-    private function getMessage() : string 
-    {
-        $this->setcousinItemsNum();
-        $this->setextraItemsNum();
-
-        if ($this->extraItemsNum < 1) {
-            return "Cada estudiante resuelve " . $this->cousinItemsNum / $this->students . " ejercicios.";
-        }
-
-        return "Cada estudiante resuelve " . (round($this->cousinItemsNum / $this->students) - (float)0) . " ejercicios. Hay " . $this->extraItemsNum . " de mas.";
-    }
-
     private function getContent() : string
     {
         $counter = 0;
 
-        $content =  $this->getMessage();
         $content .= "</br>";
-        $content .= "</br>";
+        $content .= "</br>3.2";
         $content .= "<table border=1>";
-        $content .= "	<tr>";
-        $content .= "		<th>Marcos</th>";
-        $content .= "		<th>Nestor</th>";
-        $content .= "		<th>Pablo</th>";
-        $content .= "	</tr>";
-        $content .= "	<tr>";
+        $content .= "	<tbody>";
+        $content .= "	    <tr>";
+        $content .= "		    <th>Marcos</th>";
+        $content .= "		    <th>Nestor</th>";
+        $content .= "		    <th>Pablo</th>";
+        $content .= "	    </tr>";
+        $content .= "	    <tr>";
           
         foreach ($this->cousinItems as $i) 
         {
@@ -74,7 +74,35 @@ final class SplitHomeWorkController
             $this->breakColumn($counter, $content);
         }
 
-        $content .= "</tr>";
+        $content .= "       </tr>";
+        $content .= "   </tbody>";
+        $content .= "</table>";
+
+        $content .= "</br>";
+        $content .= "</br>3.3";
+        $content .= "<table border=1>";
+        $content .= "	<tbody>";
+        $content .= "	    <tr>";
+        $content .= "		    <th>Marcos</th>";
+        $content .= "		    <th>Nestor</th>";
+        $content .= "		    <th>Pablo</th>";
+        $content .= "	    </tr>";
+        $content .= "	    <tr>";
+        
+        $counter = 0;
+        foreach ($this->cousinItemsTwo as $i) 
+        {
+            $content .= "<td>";
+            $content .= $i;
+            $content .= "</td>";
+            $counter++;
+            
+            $this->breakColumn($counter, $content);
+        }
+
+        $content .= "       </tr>";
+        $content .= "   </tbody>";
+
         $content .= "</table>";
 
         return $content;
