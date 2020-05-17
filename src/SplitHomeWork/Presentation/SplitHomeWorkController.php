@@ -37,24 +37,10 @@ final class SplitHomeWorkController
         $this->extraItemsNum = $this->cousinItemsNum % $this->students;
     }
 
-    private function getMessage() : string 
-    {
-        $this->setcousinItemsNum();
-        $this->setextraItemsNum();
-
-        if ($this->extraItemsNum < 1) {
-            return "Cada estudiante resuelve " . $this->cousinItemsNum / $this->students . " ejercicios.";
-        }
-
-        return "Cada estudiante resuelve " . (round($this->cousinItemsNum / $this->students) - (float)0) . " ejercicios. Hay " . $this->extraItemsNum . " de mas.";
-    }
-
     private function getContent() : string
     {
         $counter = 0;
 
-        $content =  $this->getMessage();
-        $content .= "</br>";
         $content .= "</br>";
         $content .= "<table border=1>";
         $content .= "	<tr>";
