@@ -8,13 +8,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use SocialNews\SplitHomeWork\Presentation\Table;
 
-final class SplitHomeWorkController 
+final class SplitHomeWorkController
 {
-    private array $studentsNames = array('Marcos', 'Nestor', 'Pablo');
-    private int $items = 73;
-    private int $itemsTwo = 5;
-    private array $cousinItems = array();
-    private array $cousinItemsTwo = array();
+    private array $students 		= array('Marcos', 'Nestor', 'Pablo');
+    private int $items 				= 63;
+    private int $itemsTwo 			= 5;
+    private array $cousinItems 		= array();
+    private array $cousinItemsTwo	= array();
 
     public function show(Request $request) : Response
     {
@@ -23,7 +23,7 @@ final class SplitHomeWorkController
     }
 
     private function setCousinItems() : void {
-        for ($i = $this->items; $i > 35; $i--)
+        for ($i = $this->items; $i > 5; $i--)
         {
             $this->cousinItems = ($i & 1) ? [...$this->cousinItems, $i] : $this->cousinItems;
         }
@@ -40,10 +40,10 @@ final class SplitHomeWorkController
     {
         $this->setCousinItems();
         $this->setCousinItemsTwo();
-        
-        $content = Table::GetTable("3.2", $this->cousinItems, count($this->studentsNames));
-        $content .= Table::GetTable("3.3", $this->cousinItemsTwo, count($this->studentsNames));
 
-        return $content;
+		return Table::GetTable("3.3", $this->cousinItems, $this->students);
+        //$content .= Table::GetTable("3.3", $this->cousinItemsTwo, count($this->studentsNames));
+
+        //return $content;
     }
 }
