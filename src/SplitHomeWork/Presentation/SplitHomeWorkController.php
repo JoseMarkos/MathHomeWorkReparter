@@ -22,8 +22,8 @@ final class SplitHomeWorkController
         return new Response($content);
     }
 
-    private function setCousinItems() : void {
-        for ($i = $this->items; $i > 5; $i--)
+    private function setCousinItems(int $minimum = 0) : void {
+        for ($i = $this->items; $i > $minimum; $i--)
         {
             $this->cousinItems = ($i & 1) ? [...$this->cousinItems, $i] : $this->cousinItems;
         }
@@ -38,7 +38,7 @@ final class SplitHomeWorkController
 
     private function getContent() : string
     {
-        $this->setCousinItems();
+        $this->setCousinItems(5);
         $this->setCousinItemsTwo();
 
 		return Table::GetTable("3.3", $this->cousinItems, $this->students);
