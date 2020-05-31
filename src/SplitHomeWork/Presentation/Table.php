@@ -10,8 +10,7 @@ final class Table
     {
         $counter = 0;
 
-        $content = "</br>";
-        $content .= "<h2>" . $name . "</h2>";
+        $content = "<h2>" . $name . "</h2>";
         $content .= "<table border=1>";
         $content .= "	<tbody>";
         $content .= "	    <tr>";
@@ -41,7 +40,7 @@ final class Table
         return $content;
     }
 
-    private function BreakColumn(int $num, string &$content, int $columns) : void
+    private static function BreakColumn(int $num, string &$content, int $columns) : void
     {
         if ($num % $columns == 0)
         {

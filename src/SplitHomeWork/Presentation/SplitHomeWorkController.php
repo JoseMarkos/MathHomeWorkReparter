@@ -22,28 +22,26 @@ final class SplitHomeWorkController
         return new Response($content);
     }
 
-    private function setCousinItems(int $minimum = 0) : void {
+    private function getCousinItems(int $minimum = 0) : array {
+    	$items = array();
+
         for ($i = $this->items; $i > $minimum; $i--)
         {
-            $this->cousinItems = ($i & 1) ? [...$this->cousinItems, $i] : $this->cousinItems;
+            $items = ($i & 1) ? [...$items, $i] : $items;
         }
-    }
 
-    private function setCousinItemsTwo() : void {
-        for ($i = $this->itemsTwo; $i > 0; $i--)
-        {
-            $this->cousinItemsTwo = ($i & 1) ? [...$this->cousinItemsTwo, $i] : $this->cousinItemsTwo;
-        }
+        return $items;
     }
 
     private function getContent() : string
     {
-        $this->setCousinItems(5);
-        $this->setCousinItemsTwo();
+        $items = $this->getCousinItems(1);
 
-		return Table::GetTable("3.3", $this->cousinItems, $this->students);
-        //$content .= Table::GetTable("3.3", $this->cousinItemsTwo, count($this->studentsNames));
-
-        //return $content;
+        $content =	'<div style="display: grid; justify-content: center;">';
+        $content .=		'<div style="padding: 1rem; background: floralwhite;">';
+        $content .= 		Table::GetTable("3.3", $items, $this->students);
+        $content .=		'</div>';
+        $content .= '</div>';
+        return  $content;
     }
 }
