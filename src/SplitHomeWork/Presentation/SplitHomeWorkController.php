@@ -11,10 +11,6 @@ use SocialNews\SplitHomeWork\Presentation\Table;
 final class SplitHomeWorkController
 {
     private array $students 		= array('Marcos', 'Nestor', 'Pablo');
-    private int $items 				= 63;
-    private int $itemsTwo 			= 5;
-    private array $cousinItems 		= array();
-    private array $cousinItemsTwo	= array();
 
     public function show(Request $request) : Response
     {
@@ -22,10 +18,10 @@ final class SplitHomeWorkController
         return new Response($content);
     }
 
-    private function getCousinItems(int $minimum = 0) : array {
+    private function getCousinItems(int $minimum = 0, int $maximum = 63) : array {
     	$items = array();
 
-        for ($i = $this->items; $i > $minimum; $i--)
+        for ($i = $maximum; $i > $minimum; $i--)
         {
             $items = ($i & 1) ? [...$items, $i] : $items;
         }
@@ -35,11 +31,13 @@ final class SplitHomeWorkController
 
     private function getContent() : string
     {
-        $items = $this->getCousinItems(1);
+        $items = $this->getCousinItems(5);
+        $items2 = $this->getCousinItems(15, 30);
 
         $content =	'<div style="display: grid; justify-content: center;">';
         $content .=		'<div style="padding: 1rem; background: floralwhite;">';
         $content .= 		Table::GetTable("3.3", $items, $this->students);
+        $content .= 		Table::GetTable("3.2", $items2, $this->students);
         $content .=		'</div>';
         $content .= '</div>';
         return  $content;
