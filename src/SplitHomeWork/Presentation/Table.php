@@ -1,51 +1,26 @@
 <?php
-
 declare(strict_types=1);
 
 namespace SocialNews\SplitHomeWork\Presentation;
 
 final class Table
 {
-    public static function GetTable(string $name, array $items, array $students) : string
+    private string $name;
+    private array $items;
+
+    function __construct(string $name, array $items)
     {
-        $counter = 0;
-
-        $content = "<h2>" . $name . "</h2>";
-        $content .= "<table border=1>";
-        $content .= "	<tbody>";
-        $content .= "	    <tr>";
-
-		foreach ($students as $student)
-		{
-			$content .= "		    <th>" . $student ."</th>";
-		}
-
-		$content .= "	    </tr>";
-		$content .= "	    <tr>";
-
-		foreach ($items as $i)
-        {
-            $content .= "<td>";
-            $content .= $i;
-            $content .= "</td>";
-            $counter++;
-
-            self::BreakColumn($counter, $content, count($students));
-        }
-
-        $content .= "       </tr>";
-        $content .= "   </tbody>";
-        $content .= "</table>";
-
-        return $content;
+        $this->name = $name;
+        $this->items = $items;
     }
 
-    private static function BreakColumn(int $num, string &$content, int $columns) : void
+    public function name()
     {
-        if ($num % $columns == 0)
-        {
-            $content .= "</tr>";
-            $content .= "<tr>";
-        }
+        return $this->name;
+    }
+
+    public function items()
+    {
+        return $this->items;
     }
 }
