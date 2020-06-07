@@ -24,12 +24,11 @@ final class TableCreator
 
         foreach ($table->items() as $i)
         {
+            $counter++;
             $content .= "<td>";
             $content .= $i;
             $content .= "</td>";
-            $counter++;
-
-            self::BreakColumn($counter, $content, count($students));
+            $content .= self::BreakColumn($counter, count($students));
         }
 
         $content .= "       </tr>";
@@ -38,12 +37,14 @@ final class TableCreator
         return $content;
     }
 
-    private static function BreakColumn(int $counter, string &$content, int $columns) : void
+    private static function BreakColumn(int $counter, int $columns) : string
     {
         if ($counter % $columns == 0)
         {
-            $content .= "</tr>";
+            $content = "</tr>";
             $content .= "<tr>";
+            return $content;
         }
+        return "";
     }
 }
