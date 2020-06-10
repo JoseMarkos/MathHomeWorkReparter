@@ -8,8 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class SplitHomeWorkController
 {
-    private array $students = array('Marcos', 'Nestor', 'Pablo');
-
     public function show(Request $request) : Response
     {
         $content = $this->getContent();
@@ -32,7 +30,7 @@ final class SplitHomeWorkController
         $table = new Table("3.4", $items);
         $content =	'<div style="display: grid; justify-content: center;">';
         $content .=		'<div style="padding: 1rem; background: floralwhite;">';
-        $content .= 		TableCreator::GetTable($table, $this->students);
+        $content .= 		TableCreator::GetTable($table);
         $content .=		'</div>';
         $content .= '</div>';
         return  $content;

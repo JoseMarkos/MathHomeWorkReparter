@@ -5,13 +5,14 @@ namespace SocialNews\SplitHomeWork\Presentation;
 
 final class TableCreator
 {
+	const students = array('Marcos', 'Nestor', 'Pablo');
+
 	/**
 	 * @param Table $table
-	 * @param array $students
 	 *
 	 * @return string
 	 */
-	public static function GetTable(Table $table, array $students) : string
+	public static function GetTable(Table $table) : string
     {
         $counter = 0;
 
@@ -20,7 +21,7 @@ final class TableCreator
         $content .= "	<tbody>";
         $content .= "	    <tr>";
 
-		foreach ($students as $student)
+		foreach (self::students as $student)
 		{
 			$content .= "		<th>" . $student ."</th>";
 		}
@@ -34,7 +35,7 @@ final class TableCreator
             $content .= 		"<td>";
             $content .= 			$i;
             $content .= 		"</td>";
-            $content .= 	self::BreakColumn($counter, count($students));
+            $content .= 	self::BreakColumn($counter);
         }
 
         $content .= "       </tr>";
@@ -55,9 +56,9 @@ final class TableCreator
 	 *
 	 * @return string
 	 */
-	private static function BreakColumn(int $counter, int $columns) : string
+	private static function BreakColumn(int $counter) : string
     {
-        if ($counter % $columns == 0)
+        if ($counter % count(self::students) == 0)
         {
             $content = "</tr>";
             $content .= "<tr>";
