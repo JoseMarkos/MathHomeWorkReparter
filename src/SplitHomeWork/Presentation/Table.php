@@ -14,12 +14,12 @@ final class Table
         $this->items = $items;
     }
 
-    public function name()
+    public function name() : string
     {
         return $this->name;
     }
 
-    public function items()
+    public function items() : array
     {
         return $this->items;
     }
