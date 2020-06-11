@@ -29,11 +29,11 @@ final class TableCreator
 		$content .= "	    </tr>";
 		$content .= "	    <tr>";
 
-        foreach ($table->items() as $i)
+        foreach ($table->items() as $item)
         {
             $counter++;
             $content .= 		"<td>";
-            $content .= 			$i;
+            $content .= 			$item;
             $content .= 		"</td>";
             $content .= 	self::BreakColumn($counter);
         }
@@ -52,7 +52,6 @@ final class TableCreator
 
 	/**
 	 * @param int $counter
-	 * @param int $columns
 	 *
 	 * @return string
 	 */
