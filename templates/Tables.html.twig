@@ -1,0 +1,56 @@
+{% set count = 0 %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Math HW reparter</title>
+        <style>
+            body {
+                display: grid; justify-content: center;
+            }
+            table {
+                margin-bottom: 1rem;
+            }
+            table, th, td {
+                border: 1px solid black;
+            }
+            th, td {
+                padding: 0.1rem 0.4rem;
+            }
+            h2 {
+                margin-top: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <article style="padding: 1rem; background: floralwhite;">
+            {% for table in tables %}
+            <h2> {{ table.name }} </h2>
+            <table>
+                <thead>
+                    <tr>
+                        {% for student in students %}
+                            <th> {{ student }} </th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {% for item in table.items %}
+                            <td> {{ item }} </td>
+
+                            {% if loop.index % 3 == 0 %}
+                                </tr>
+                                <tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+            {% endfor %}
+        </article>
+        <section>
+            <p>Nota: Puedes hacer {{ (count / 5)|round }} ejercicios por dia.</p>
+        </section>
+    </body>
+</html>
