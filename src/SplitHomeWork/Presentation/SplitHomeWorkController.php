@@ -3,36 +3,76 @@ declare(strict_types=1);
 
 namespace SocialNews\SplitHomeWork\Presentation;
 
+use SocialNews\Framework\Rendering;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class SplitHomeWorkController
 {
-    public function show(Request $request) : Response
+    private $templateRender;
+    const students = array('Marcos', 'Nestor', 'Pablo');
+
+    public function __construct(Rendering\TemplateRenderer $templateRender)
     {
-        $content = $this->getContent();
-        return new Response($content);
+        $this->templateRender = $templateRender;
     }
 
-    private function getCousinItems(int $minimum = 0, int $maximum = 63) : array {
-    	$items = array();
+    /**
+     * @param Request $request
+     * @return Response
+     */
+    public function show(Request $request) : Response
+    {
+       $content = $this->templateRender->render('Tables.html.twig', [
+           'tables' => $this->getContent(),
+           'students' => self::students,
+       ]); 
+       return new Response($content);
+    }
 
-        for ($i = $maximum; $i > $minimum; $i--)
+    /**
+     * @param int $minimum
+     * @param int $maximum
+     * @return array
+     */
+    private function getCousinItems(int $minimum = 1, int $maximum = 63) : array {
+    	$items = array();
+        
+        for ($i = $maximum; $i >= $minimum; $i--)
         {
             $items = ($i & 1) ? [...$items, $i] : $items;
         }
         return $items;
     }
 
-    private function getContent() : string
+        /**
+     * @param int $minimum
+     * @param int $maximum
+     * @return array
+     */
+    private function getMultiplyOf(int $minimum = 1, int $maximum = 63, int $base) : array {
+    	$items = array();
+        
+        for ($i = $maximum; $i >= $minimum; $i--)
+        {
+            $items = !($i % $base) ? [...$items, $i] : $items;
+        }
+        return $items;
+    }
+
+    /**
+     * @return array
+     */
+    private function getContent() : array
     {
-        $items = $this->getCousinItems(0, 31);
-        $table = new Table("3.4", $items);
-        $content =	'<div style="display: grid; justify-content: center;">';
-        $content .=		'<div style="padding: 1rem; background: floralwhite;">';
-        $content .= 		TableCreator::GetTable($table);
-        $content .=		'</div>';
-        $content .= '</div>';
-        return  $content;
+        //$items =  [...$items1, ...$second, ...$items];
+       
+        $items    = $this->getCousinItems(1, 41);
+        $table    = new Table("6.4", $items);
+        
+        $items2    = $this->getMultiplyOf(1, 50, 7);
+        $table2    = new Table("6.5", $items2);
+        
+        return  [$table, $table2, $table3];
     }
 }
