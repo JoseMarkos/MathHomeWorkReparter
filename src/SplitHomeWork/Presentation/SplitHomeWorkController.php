@@ -60,19 +60,32 @@ final class SplitHomeWorkController
         return $items;
     }
 
+    private function getStrangerThing(int $maximum) : array {
+    	$items = [3];
+        
+        while (end($items) + 4 < $maximum) 
+        {
+            array_push($items, end($items) + 4);
+        }
+        return $items;
+    }
+
     /**
      * @return array
      */
     private function getContent() : array
     {
         //$items =  [...$items1, ...$second, ...$items];
-       
-        $items    = $this->getCousinItems(1, 41);
-        $table    = new Table("6.4", $items);
-        
-        $items2    = $this->getMultiplyOf(1, 50, 7);
-        $table2    = new Table("6.5", $items2);
-        
-        return  [$table, $table2, $table3];
+        $items34 = self::getStrangerThing(46);
+        $table34 = new Table("3.4", $items34);
+
+        $items35 = self::getStrangerThing(32);
+        array_shift($items35);
+        $table35 = new Table("3.5", $items35);
+
+        $items36 = self::getStrangerThing(34);
+        $table36 = new Table("3.6", $items36);
+
+        return  [$table34, $table35, $table36];
     }
 }

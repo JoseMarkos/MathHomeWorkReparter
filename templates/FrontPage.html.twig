@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HW reparter</title>
+    <style>
+        body {
+            font-family: sans-serf;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 0.1rem 0.2rem;
+        }
+        h2 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div style="display: grid; justify-content: center;">
+        <div style="padding: 1rem; background: floralwhite;">
+            <h2> {{ table.name }} </h2>
+            <table>
+                <tbody>
+                    <tr>
+                        {% for student in students %}
+                            <th> {{ student }} </th>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        {% for item in table.items %}
+                            <td> {{ item }} </td>
+
+                            {% if loop.index % 3 == 0 %}
+                                </tr>
+                                <tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

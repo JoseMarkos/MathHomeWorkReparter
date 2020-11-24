@@ -40,7 +40,10 @@ switch ($routeInfo[0]) {
     case \FastRoute\Dispatcher::FOUND:
         [$controllerName, $method] = explode('#', $routeInfo[1]);
         $vars = $routeInfo[2];
-        $controller = new $controllerName;
+        $injector = include('Dependencies.php');
+        // $factory = new SocialNews\Framework\Rendering\TwigTemplateRendererFactory();
+        // $templateRenderer = $factory->create();
+        $controller = $injector->make($controllerName);
         $response = $controller->$method($request, $vars);
     break;
 }
